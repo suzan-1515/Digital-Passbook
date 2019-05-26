@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Sahakaari</string>
+
+    <string-array name="filter_options">
+        <item>This month</item>
+        <item>Last month</item>
+        <item>All time</item>
+    </string-array>
+
+    <string-array name="filter_action">
+        <item>Withdraw</item>
+        <item>Deposit</item>
+        <item>List All</item>
+    </string-array>
+
+    <string name="welcome_text">Welcome! <b>%s</b></string>
+
+</resources>

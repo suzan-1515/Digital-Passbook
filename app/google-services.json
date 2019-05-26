@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "962576572137",
+    "firebase_url": "https://collegeprojectsahakaari.firebaseio.com",
+    "project_id": "collegeprojectsahakaari",
+    "storage_bucket": "collegeprojectsahakaari.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962576572137:android:0f0c2668ed90e010",
+        "android_client_info": {
+          "package_name": "np.com.krishna"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962576572137-2f2i2tf92c7tfku2hhl7819q68smmui3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "np.com.krishna",
+            "certificate_hash": "25685aed34108fcac1fcd5960ad44594f7ce7990"
+          }
+        },
+        {
+          "client_id": "962576572137-6vlh7rejuvjlh5rnmpoorp0aim0kdetk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqjpPrYTJcuudyGsTfTuOLReCDXvHG2Y0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962576572137-6vlh7rejuvjlh5rnmpoorp0aim0kdetk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/loan_amount_label"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/loan_amount"
+            android:text="Loan Amount:" />
+
+        <TextView
+            android:id="@+id/loan_amount"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="N/A" />
+
+
+        <TextView
+            android:id="@+id/loan_interest_label"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/loan_amount"
+            android:layout_marginTop="4dp"
+            android:layout_toStartOf="@+id/loan_interest"
+            android:text="Interest:" />
+
+        <TextView
+            android:id="@+id/loan_interest"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/loan_interest_label"
+            android:layout_alignParentEnd="true"
+            android:text="N/A" />
+
+        <TextView
+            android:id="@+id/loan_paid_label"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/loan_interest"
+            android:layout_marginTop="4dp"
+            android:layout_toStartOf="@+id/loan_interest"
+            android:text="Paid Amount:" />
+
+        <TextView
+            android:id="@+id/loan_paid_amount"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/loan_paid_label"
+            android:layout_alignParentEnd="true"
+            android:text="N/A"
+            android:textColor="@color/primaryLightColor" />
+
+        <TextView
+            android:id="@+id/loan_remaining_label"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/loan_paid_amount"
+            android:layout_marginTop="4dp"
+            android:layout_toStartOf="@+id/loan_interest"
+            android:text="Remaining Amount:" />
+
+        <TextView
+            android:id="@+id/loan_remaining_amount"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/loan_remaining_label"
+            android:layout_alignParentEnd="true"
+            android:text="N/A"
+            android:textColor="@color/secondaryLightColor" />
+
+
+        <TextView
+            android:id="@+id/date"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/loan_remaining_amount"
+            android:layout_marginTop="8dp"
+            android:text="N/A" />
+
+
+    </RelativeLayout>
+
+</android.support.design.card.MaterialCardView>
