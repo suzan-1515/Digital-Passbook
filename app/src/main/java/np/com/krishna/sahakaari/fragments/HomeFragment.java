@@ -127,10 +127,11 @@ public class HomeFragment extends Fragment {
                         Glide.with(getContext())
                                 .load(profileResponse.getPhoto())
                                 .apply(new RequestOptions()
+                                        .placeholder(R.drawable.no_image)
+                                        .error(R.drawable.no_image)
                                         .circleCrop()
-                                        .override(60, 60)
-                                        .error(R.drawable.ic_person_black)
-                                        .placeholder(R.drawable.ic_person_black))
+                                        .override(80, 80)
+                                )
                                 .into(mAvatar);
                     }
                 } else {

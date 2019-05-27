@@ -4,7 +4,6 @@
     android:id="@+id/front_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surfaceColor"
     android:orientation="vertical">
 
     <!--This is the backdrop's header with a title and icon-->
@@ -30,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:visibility="gone"
             app:srcCompat="@drawable/ic_filter_list_black_24dp" />
 
     </LinearLayout>
@@ -38,6 +38,7 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/surfaceColor"
         app:layout_empty="@layout/view_loan_empty"
         app:layout_error="@layout/view_error"
         app:layout_progress="@layout/view_progress" />

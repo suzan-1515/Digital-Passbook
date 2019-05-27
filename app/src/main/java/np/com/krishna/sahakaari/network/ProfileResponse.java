@@ -14,6 +14,14 @@ public class ProfileResponse implements Serializable {
     private String fullName;
     @SerializedName("address")
     private String address;
+    @SerializedName("contact")
+    private String contact;
+    @SerializedName("dob")
+    private String dob;
+    @SerializedName("gender")
+    private String gender;
+    @SerializedName("citizenship_number")
+    private String citizenshipNumber;
     @SerializedName("photo")
     private String photo;
     @SerializedName("amount")
@@ -35,13 +43,19 @@ public class ProfileResponse implements Serializable {
     @SerializedName("assigned_staff")
     private User fieldAgent;
 
-    public ProfileResponse(User user, String fatherName, String fullName, String address, String photo, float amount,
-                           String accountNumber, String membershipNumber, String description, String type, String createdDate,
-                           String duration, String paymentDate, User fieldAgent) {
+    public ProfileResponse(User user, String fatherName, String fullName, String address,
+                           String contact, String dob, String gender, String citizenshipNumber,
+                           String photo, float amount, String accountNumber, String membershipNumber,
+                           String description, String type, String createdDate, String duration,
+                           String paymentDate, User fieldAgent) {
         this.user = user;
         this.fatherName = fatherName;
         this.fullName = fullName;
         this.address = address;
+        this.contact = contact;
+        this.dob = dob;
+        this.gender = gender;
+        this.citizenshipNumber = citizenshipNumber;
         this.photo = photo;
         this.amount = amount;
         this.accountNumber = accountNumber;
@@ -151,6 +165,38 @@ public class ProfileResponse implements Serializable {
 
     public void setFieldAgent(User fieldAgent) {
         this.fieldAgent = fieldAgent;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getCitizenshipNumber() {
+        return citizenshipNumber;
+    }
+
+    public void setCitizenshipNumber(String citizenshipNumber) {
+        this.citizenshipNumber = citizenshipNumber;
     }
 
     @Override

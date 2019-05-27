@@ -57,7 +57,7 @@ public class LoanBinder extends ItemBinder<LoanResponse, LoanBinder.ViewHolder> 
         @SuppressLint("DefaultLocale")
         void bindTo(LoanResponse item) {
             mLoanAmount.setText(String.format("NPR. %.02f", item.getLoanAmount()));
-            mInterest.setText(String.format("NPR. %.02f @ %.02f", item.getInterestAmount(), item.getInterestRate()));
+            mInterest.setText(String.format("NPR. %.02f @ %.02f%s", item.getInterestAmount(), item.getInterestRate(), "%"));
             mPaidAmount.setText(String.format("NPR. %.02f", item.getPaidAmount()));
             mRemainingAmount.setText(String.format("NPR. %.02f", item.getRemainingAmount()));
             mDate.setText(TextUtils.isEmpty(item.getPaymentDate()) ? item.getLoanDate() : item.getPaymentDate());

@@ -5,7 +5,6 @@
     android:id="@+id/front_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surfaceColor"
     android:orientation="vertical">
 
     <!--This is the backdrop's header with a title and icon-->
@@ -26,32 +25,31 @@
             android:text="Profile" />
 
         <ImageButton
-            android:id="@+id/filterIcon"
+            android:id="@+id/password_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:visibility="gone"
-            app:srcCompat="@drawable/ic_filter_list_black_24dp" />
-
+            app:srcCompat="@drawable/ic_password" />
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressbar"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/surfaceColor">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
 
             <ImageView
                 android:id="@+id/avatar"
@@ -60,7 +58,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
-                tools:srcCompat="@drawable/ic_person_pin_black_24dp" />
+                android:src="@drawable/no_image" />
 
             <TextView
                 android:id="@+id/name"
@@ -76,8 +74,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                app:cardCornerRadius="2dp"
                 app:cardElevation="4dp"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                app:contentPadding="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -113,6 +113,66 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:text="Contact:" />
+
+                    <TextView
+                        android:id="@+id/contact"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="N/A"
+                        tools:text="9849056767" />
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Date of Birth:" />
+
+                    <TextView
+                        android:id="@+id/dob"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="N/A"
+                        tools:text="2052/07/29" />
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Gender:" />
+
+                    <TextView
+                        android:id="@+id/gender"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="N/A"
+                        tools:text="Male" />
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Citizenship Number:" />
+
+                    <TextView
+                        android:id="@+id/citizenship_number"
+                        style="@style/TextAppearance.AppCompat.Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="N/A"
+                        tools:text="255-01-2345-01" />
+
+                    <TextView
+                        style="@style/TextAppearance.AppCompat.Body1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:text="Address:" />
 
                     <TextView
@@ -131,8 +191,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                app:cardCornerRadius="2dp"
                 app:cardElevation="4dp"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                app:contentPadding="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"

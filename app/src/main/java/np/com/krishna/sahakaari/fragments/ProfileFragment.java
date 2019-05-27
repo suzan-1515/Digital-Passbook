@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,6 +39,10 @@ public class ProfileFragment extends Fragment {
     private TextView mName;
     private ImageView mAvatar;
     private TextView mFatherName;
+    private TextView mContact;
+    private TextView mGender;
+    private TextView mDOB;
+    private TextView mCitizenshipNumber;
     private TextView mAddressName;
     private TextView mUsername;
     private TextView mMembershipNumber;
@@ -47,6 +52,7 @@ public class ProfileFragment extends Fragment {
     private TextView mDuration;
     private TextView mAssignedStaff;
     private ProgressBar mProgressBar;
+    private ImageButton mPasswordChangeButton;
 
     private Call<ProfileResponse> mProfileCall;
 
@@ -109,13 +115,18 @@ public class ProfileFragment extends Fragment {
                             Glide.with(getContext())
                                     .load(profileResponse.getPhoto())
                                     .apply(new RequestOptions()
+                                            .placeholder(R.drawable.no_image)
+                                            .error(R.drawable.no_image)
                                             .circleCrop()
                                             .override(200, 200)
-                                            .error(R.drawable.ic_person_black)
-                                            .placeholder(R.drawable.ic_person_black))
+                                    )
                                     .into(mAvatar);
                         }
                         mFatherName.setText(profileResponse.getFatherName());
+                        mContact.setText(profileResponse.getContact());
+                        mGender.setText(profileResponse.getGender());
+                        mDOB.setText(profileResponse.getDob());
+                        mCitizenshipNumber.setText(profileResponse.getCitizenshipNumber());
                         mAddressName.setText(profileResponse.getAddress());
                         mUsername.setText(profileResponse.getUser().getUsername());
                         mMembershipNumber.setText(profileResponse.getMembershipNumber());
@@ -149,6 +160,10 @@ public class ProfileFragment extends Fragment {
         mName = view.findViewById(R.id.name);
         mAvatar = view.findViewById(R.id.avatar);
         mFatherName = view.findViewById(R.id.father_name);
+        mContact = view.findViewById(R.id.contact);
+        mGender = view.findViewById(R.id.gender);
+        mDOB = view.findViewById(R.id.dob);
+        mCitizenshipNumber = view.findViewById(R.id.citizenship_number);
         mAddressName = view.findViewById(R.id.address);
         mUsername = view.findViewById(R.id.username);
         mMembershipNumber = view.findViewById(R.id.membership_number);
@@ -157,6 +172,11 @@ public class ProfileFragment extends Fragment {
         mDepositAmount = view.findViewById(R.id.deposit_amount);
         mDuration = view.findViewById(R.id.duration);
         mAssignedStaff = view.findViewById(R.id.assigned_staff);
+        mPasswordChangeButton = view.findViewById(R.id.password_button);
+        mPasswordChangeButton.setOnClickListener(v -> {
+            ChangePasswordFragment changePasswordFragment = ChangePasswordFragment.newInstance(userCredintials.get("token"));
+            changePasswordFragment.show(getChildFragmentManager(), "password_change");
+        });
     }
 
     @Override

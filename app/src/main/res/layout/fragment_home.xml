@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/surfaceColor"
     android:orientation="vertical">
 
     <!--This is the backdrop's header with a title and icon-->
@@ -41,18 +40,17 @@
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:layout_alignTop="@+id/subtitle"
-            android:layout_alignBottom="@+id/welcome_text"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="4dp"
             android:scaleType="centerCrop"
-            android:tint="@color/primaryColor"
-            app:srcCompat="@drawable/ic_person" />
+            app:srcCompat="@drawable/no_image" />
 
     </RelativeLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/surfaceColor">
         <!--And finally this is the body of the backdrop's content. You can add here whatever you need inside a view group (LinearLayout, RelativeLayout, SwipeRefreshLayout, ConstraintLayout, etc.)-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -179,7 +177,7 @@
 
                 <include
                     android:id="@+id/loan_empty_view"
-                    layout="@layout/view_transaction_empty"
+                    layout="@layout/view_loan_empty"
                     android:visibility="gone" />
 
                 <include

@@ -1,86 +1,144 @@
 package np.com.krishna.sahakaari.fragments;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.Nullable;
+import android.support.design.button.MaterialButton;
+import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
-public class ChangePasswordFragment extends DialogFragment {
+import np.com.krishna.R;
+import np.com.krishna.sahakaari.helpers.ToastHelper;
+import np.com.krishna.sahakaari.network.InvalidPasswordResponse;
+import np.com.krishna.sahakaari.network.PasswordChangeResponse;
+import np.com.krishna.sahakaari.network.RetrofitClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import timber.log.Timber;
+
+public class ChangePasswordFragment extends BottomSheetDialogFragment {
 
 
-    private EditText oldPassword;
-    private EditText newPassword;
-    private EditText confirmPassword;
+    private TextInputLayout mCurrentPasswordLayout;
+    private TextInputEditText mCurrentPassword;
+    private TextInputLayout mNewPasswordLayout;
+    private TextInputEditText mNewPassword;
+    private TextInputLayout mConfirmPasswordLayout;
+    private TextInputEditText mConfirmPassword;
+    private MaterialButton mChangePasswordButton;
+    private ProgressBar mProgressbar;
 
-    private String old;
-    private String pass;
-    private String confirm;
+    private String currentPassword = "";
+    private String newPassword = "";
+    private String confirmPassword = "";
 
-    private View rootView;
-    private Context activity;
+    private Call<PasswordChangeResponse> mPasswordChangeCall;
+
 
     public ChangePasswordFragment() {
 
     }
 
-    public static ChangePasswordFragment newInstance(Context activity) {
-        ChangePasswordFragment fragment = new ChangePasswordFragment();
-        fragment.activity = activity;
-        return fragment;
+    public static ChangePasswordFragment newInstance(String token) {
+        ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("token", token);
+        changePasswordFragment.setArguments(bundle);
+        return changePasswordFragment;
     }
 
-    @NonNull
+
+    @Nullable
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        initViews();
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                .setView(rootView)
-                .setTitle("Change password")
-                .setCancelable(false)
-                .setPositiveButton("Change", null)
-                .create();
-        alertDialog.setCanceledOnTouchOutside(false);
-        alertDialog.setCancelable(false);
-        alertDialog.setOnShowListener(dialog -> {
-            onDialogShow(alertDialog);
-        });
-        return alertDialog;
-    }
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.layout_password_change, container, false);
 
-    private void initViews() {
-//        rootView = LayoutInflater.from(getContext())
-//                .inflate(R.layout.password_change_layout, null, false);
-//
-//        oldPassword = rootView.findViewById(R.id.oldp);
-//        newPassword = rootView.findViewById(R.id.newp);
-//        confirmPassword = rootView.findViewById(R.id.confirmp);
+        String token = getArguments().getString("token");
+
+        mCurrentPasswordLayout = view.findViewById(R.id.current_password_layout);
+        mCurrentPassword = view.findViewById(R.id.current_password);
+        mNewPasswordLayout = view.findViewById(R.id.new_password_layout);
+        mNewPassword = view.findViewById(R.id.new_password);
+        mConfirmPasswordLayout = view.findViewById(R.id.confirm_password_layout);
+        mConfirmPassword = view.findViewById(R.id.confirm_password);
+        mChangePasswordButton = view.findViewById(R.id.change_password_button);
+        mProgressbar = view.findViewById(R.id.progress);
+
+        mChangePasswordButton.setOnClickListener(v -> {
+            boolean isValid = true;
+            if (currentPassword.isEmpty()) {
+                mCurrentPasswordLayout.setError("Current password cannot be empty.");
+                isValid = false;
+            }
+
+            if (newPassword.isEmpty()) {
+                mNewPasswordLayout.setError("New password cannot be empty.");
+                isValid = false;
+            }
+            if (confirmPassword.isEmpty()) {
+                mConfirmPasswordLayout.setError("Confirm password cannot be empty.");
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            mProgressbar.setVisibility(View.VISIBLE);
+            mChangePasswordButton.setEnabled(false);
+            mPasswordChangeCall = RetrofitClient.getInstance()
+                    .endpoint()
+                    .changePassword(token, currentPassword, newPassword, confirmPassword);
+            mPasswordChangeCall.enqueue(new Callback<PasswordChangeResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<PasswordChangeResponse> call, @NonNull Response<PasswordChangeResponse> response) {
+                    if (response.isSuccessful()) {
+                        mProgressbar.setVisibility(View.GONE);
+                        mChangePasswordButton.setEnabled(true);
+                        PasswordChangeResponse changeResponse = response.body();
+                        if (changeResponse != null) {
+                            ToastHelper.showToast(getContext(), changeResponse.getSuccessMessage());
+                        } else
+                            ToastHelper.showToast(getContext(), "Unknown error. Try again later.");
+                    } else {
+                        if (response.code() == 400) {
+                            InvalidPasswordResponse unauthorizedResponse = InvalidPasswordResponse.fromJson(response.errorBody().charStream());
+                            if (unauthorizedResponse.getCurrentPasswordErrorMessage() != null || unauthorizedResponse.getNewPasswordErrorMessage() != null) {
+                                ToastHelper.showToast(getContext(), "Invalid password request.");
+                            } else
+                                ToastHelper.showToast(getContext(), "Unknown error. Try again later.");
+                        } else {
+                            ToastHelper.showToast(getContext(), "Unknown error. Try again later.");
+                        }
+                    }
+                    dismiss();
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<PasswordChangeResponse> call, @NonNull Throwable t) {
+                    Timber.e(t);
+                    ToastHelper.showToast(getContext(), "Unknown error. Try again later.");
+                    mProgressbar.setVisibility(View.GONE);
+                    mChangePasswordButton.setEnabled(true);
+                }
+            });
+
+
+        });
 
         addTextWatchers();
-    }
 
-    private void onDialogShow(AlertDialog dialog) {
-        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        positiveButton.setOnClickListener(v -> {
-            onDoneClicked();
-        });
-    }
-
-    private void onDoneClicked() {
-        if (old.trim().isEmpty() || !pass.trim().equals(confirm.trim())) {
-            return;
-        }
-
+        return view;
     }
 
     private void addTextWatchers() {
-        oldPassword.addTextChangedListener(new TextWatcher() {
+        mCurrentPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -91,10 +149,10 @@ public class ChangePasswordFragment extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                old = s.toString();
+                currentPassword = s.toString().trim();
             }
         });
-        newPassword.addTextChangedListener(new TextWatcher() {
+        mNewPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -105,10 +163,10 @@ public class ChangePasswordFragment extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                pass = s.toString();
+                newPassword = s.toString().trim();
             }
         });
-        confirmPassword.addTextChangedListener(new TextWatcher() {
+        mConfirmPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -119,9 +177,20 @@ public class ChangePasswordFragment extends DialogFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                confirm = s.toString();
+                confirmPassword = s.toString().trim();
+                if (!newPassword.equals(confirmPassword)) {
+                    mConfirmPasswordLayout.setError("Password do not match.");
+                } else {
+                    mConfirmPasswordLayout.setError(null);
+                }
             }
         });
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mPasswordChangeCall != null)
+            mPasswordChangeCall.cancel();
+    }
 }

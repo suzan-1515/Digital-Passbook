@@ -31,6 +31,12 @@ public interface APIService {
     @GET("user/profile/")
     Call<ProfileResponse> fetchProfile(@Header("Authorization") String authorization);
 
+    @FormUrlEncoded
+    @POST("change-password/")
+    Call<PasswordChangeResponse> changePassword(@Header("Authorization") String authorization, @Field("current_password") String currentPass,
+                                                @Field("new_password") String newPass, @Field("confirm_password") String confirmPass);
+
+
     @GET("user/account-info/")
     Call<AccountResponse> fetchAccountInfo(@Header("Authorization") String authorization);
 
